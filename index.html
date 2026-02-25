@@ -466,7 +466,7 @@
   <div class="section">
     <h2>Condividi l'evento</h2>
     <div class="share-btns">
-      <a class="share-btn wa" href="https://wa.me/?text=Back%20to%20Paranoia%20-%20Sabato%2021%20Marzo%20al%20Seven%20(Gorla%20Maggiore)%20-%2020%E2%82%AC%20open%20bar%20tutta%20la%20notte!" target="_blank" rel="noopener">
+      <a class="share-btn wa" id="waShareBtn" href="#" target="_blank" rel="noopener">
         💬 WhatsApp
       </a>
       <a class="share-btn ig" href="#" onclick="copyToClipboard(); return false;">
@@ -594,10 +594,16 @@
     }
   }
 
-  function copyToClipboard() {
-    const text = `Back to Paranoia\nSabato 21 Marzo\nSeven — Gorla Maggiore (Via Sabotino)\n20€ open bar tutta la notte\nGuardaroba incluso\n21:30 - 03:00\n\nIscriviti qui: ${window.location.href}`;
-    navigator.clipboard.writeText(text).then(() => showToast('Testo copiato!'));
+  function getShareText() {
+    return `Back to Paranoia\nSabato 21 Marzo\nSeven — Gorla Maggiore (Via Sabotino)\n20€ open bar tutta la notte\nGuardaroba incluso\n21:30 - 03:00\n\nIscriviti qui: ${window.location.href}`;
   }
+
+  function copyToClipboard() {
+    navigator.clipboard.writeText(getShareText()).then(() => showToast('Testo copiato!'));
+  }
+
+  // Imposta il link WhatsApp con lo stesso testo
+  document.getElementById('waShareBtn').href = 'https://wa.me/?text=' + encodeURIComponent(getShareText());
 
   function copyPageLink() {
     navigator.clipboard.writeText(window.location.href).then(() => showToast('Link copiato!'));
