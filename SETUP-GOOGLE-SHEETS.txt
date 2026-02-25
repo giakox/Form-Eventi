@@ -1,0 +1,181 @@
+================================================================
+  SETUP GOOGLE SHEETS — Guida passo passo (10 minuti)
+================================================================
+
+Questo setup va fatto UNA SOLA VOLTA. Poi funziona per tutti
+gli eventi futuri senza toccare nulla.
+
+================================================================
+PASSO 1 — Crea il Google Sheet
+================================================================
+
+1. Vai su https://sheets.google.com
+2. Crea un nuovo foglio vuoto
+3. Rinominalo "Mailing List Eventi"
+4. Nella riga 1, scrivi queste intestazioni (una per colonna):
+
+   A1: Timestamp
+   B1: Evento
+   C1: Tipo
+   D1: Nome
+   E1: Email
+   F1: Ospiti
+   G1: Domanda
+   H1: Nome Mittente
+   I1: Email Amico
+   J1: Nome Amico
+   K1: Pagina
+
+   (Puoi anche copiarle tutte in una volta)
+
+
+================================================================
+PASSO 2 — Aggiungi lo Script
+================================================================
+
+1. Nel foglio Google, vai su:
+   Estensioni > Apps Script
+
+2. Si apre l'editor di script. CANCELLA tutto il codice
+   che trovi e INCOLLA questo:
+
+--- INIZIO CODICE (copia da qui) ---
+
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data;
+
+  try {
+    data = JSON.parse(e.postData.contents);
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ error: 'JSON non valido' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  sheet.appendRow([
+    data.timestamp || new Date().toISOString(),
+    data.evento || '',
+    data.tipo || '',
+    data.name || data.senderName || '',
+    data.email || '',
+    data.guests || '',
+    data.question || '',
+    data.senderName || '',
+    data.friendEmail || '',
+    data.friendName || '',
+    data.pagina || ''
+  ]);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ result: 'ok' }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+--- FINE CODICE (copia fino a qui) ---
+
+3. Clicca il pulsante SALVA (icona dischetto) o Ctrl+S
+4. Dai un nome al progetto, es: "Form Eventi"
+
+
+================================================================
+PASSO 3 — Pubblica lo Script come Web App
+================================================================
+
+1. Nell'editor Apps Script, clicca su:
+   Deploy > Nuova distribuzione (New deployment)
+
+2. Clicca la rotella accanto a "Seleziona tipo"
+   e scegli: "App web" (Web app)
+
+3. Configura cosi:
+   - Descrizione: "Form Eventi"
+   - Esegui come: "Me" (il tuo account)
+   - Chi ha accesso: "Chiunque" (Anyone)
+
+4. Clicca "Esegui distribuzione" (Deploy)
+
+5. Ti chiede di autorizzare — clicca:
+   - "Autorizza accesso"
+   - Seleziona il tuo account Google
+   - Se dice "App non verificata", clicca:
+     "Avanzate" > "Vai a Form Eventi (non sicuro)"
+   - Clicca "Consenti"
+
+6. COPIA IL LINK che ti mostra (tipo:
+   https://script.google.com/macros/s/xxxxx/exec)
+
+   QUESTO E' IL TUO LINK! Conservalo.
+
+
+================================================================
+PASSO 4 — Incolla il link nella Landing Page
+================================================================
+
+1. Apri il file "back-to-paranoia-landing.html"
+2. Cerca questa riga in cima allo script:
+
+   const GOOGLE_SCRIPT_URL = 'QUI_IL_TUO_LINK';
+
+3. Sostituisci 'QUI_IL_TUO_LINK' con il link che hai copiato.
+   Esempio:
+
+   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/xxxxx/exec';
+
+4. Salva il file. FATTO!
+
+
+================================================================
+PASSO 5 — Pubblica la pagina online
+================================================================
+
+Opzione A — Netlify (drag & drop, gratis):
+1. Vai su https://app.netlify.com
+2. Crea account gratis (puoi usare Google)
+3. Trascina il file HTML nella pagina
+4. In 10 secondi hai un link tipo:
+   https://random-name.netlify.app
+5. Puoi personalizzare il nome in Site settings
+
+Opzione B — GitHub Pages (gratis):
+1. Crea un repo su GitHub
+2. Carica il file HTML come index.html
+3. Attiva GitHub Pages nelle settings
+4. Link tipo: https://tuonome.github.io/eventi/
+
+
+================================================================
+PER I PROSSIMI EVENTI
+================================================================
+
+Per creare una pagina per un nuovo evento:
+
+1. Duplica il file HTML
+2. Cambia:
+   - Titolo, data, luogo, prezzo nel HTML
+   - La variabile EVENTO nello script, es:
+     const EVENTO = 'Summer Vibes — 15 Giugno 2026';
+3. Pubblica la nuova pagina
+4. I dati finiscono nello STESSO Google Sheet,
+   con la colonna "Evento" che ti dice da quale evento
+   arriva ogni iscrizione.
+
+Per filtrare per evento nel foglio:
+- Usa Dati > Crea un filtro
+- Filtra la colonna B (Evento) per vedere solo
+  le iscrizioni di un evento specifico.
+
+
+================================================================
+BONUS — Esportare i contatti per email
+================================================================
+
+Per mandare email a tutti gli iscritti:
+
+1. Nel Google Sheet, filtra per Tipo = "iscrizione"
+2. Seleziona la colonna Email
+3. Scarica come CSV (File > Scarica > CSV)
+4. Importa su Brevo (ex Sendinblue) o MailChimp
+5. Usa il file email-back-to-paranoia.html come template
+
+================================================================
