@@ -379,8 +379,12 @@
           <input type="text" name="name" placeholder="Il tuo nome" required>
         </div>
         <div class="form-group">
-          <label>Numero WhatsApp</label>
-          <input type="tel" name="whatsapp" placeholder="+39 333 1234567" required>
+          <label>Email</label>
+          <input type="email" name="email" placeholder="la-tua@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Telefono</label>
+          <input type="tel" name="phone" placeholder="+39 333 1234567" required>
         </div>
         <div class="form-group">
           <label>Quante persone?</label>
@@ -397,7 +401,7 @@
       <div class="success-msg" id="signupSuccess">
         <div class="check">✓</div>
         <h3>Sei nella lista!</h3>
-        <p>Ti contatteremo su WhatsApp con tutti i dettagli. Ci vediamo il 21 marzo!</p>
+        <p>Ti contatteremo su WhatsApp per la conferma. Ci vediamo il 21 marzo!</p>
       </div>
     </div>
 
@@ -409,8 +413,12 @@
           <input type="text" name="name" placeholder="Il tuo nome" required>
         </div>
         <div class="form-group">
-          <label>Numero WhatsApp</label>
-          <input type="tel" name="whatsapp" placeholder="+39 333 1234567" required>
+          <label>Email</label>
+          <input type="email" name="email" placeholder="la-tua@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Telefono</label>
+          <input type="tel" name="phone" placeholder="+39 333 1234567" required>
         </div>
         <div class="form-group">
           <label>La tua domanda</label>
@@ -433,8 +441,12 @@
           <input type="text" name="senderName" placeholder="Il tuo nome" required>
         </div>
         <div class="form-group">
-          <label>WhatsApp del tuo amico/a</label>
-          <input type="tel" name="friendWhatsapp" placeholder="+39 333 1234567" required>
+          <label>Email del tuo amico/a</label>
+          <input type="email" name="friendEmail" placeholder="email-amico@esempio.com" required>
+        </div>
+        <div class="form-group">
+          <label>Telefono del tuo amico/a</label>
+          <input type="tel" name="friendPhone" placeholder="+39 333 1234567" required>
         </div>
         <div class="form-group">
           <label>Nome dell'amico/a</label>
@@ -445,7 +457,7 @@
       <div class="success-msg" id="inviteSuccess">
         <div class="check">📨</div>
         <h3>Invito inviato!</h3>
-        <p>Il tuo amico riceverà tutte le info su WhatsApp.</p>
+        <p>Il tuo amico riceverà tutte le info via email.</p>
       </div>
     </div>
   </div>
@@ -454,7 +466,7 @@
   <div class="section">
     <h2>Condividi l'evento</h2>
     <div class="share-btns">
-      <a class="share-btn wa" href="https://wa.me/393331110844?text=Back%20to%20Paranoia%20%F0%9F%94%A5%20Sabato%2021%20Marzo%20al%20Seven%20(Gorla%20Maggiore)%20%E2%80%94%2020%E2%82%AC%20open%20bar!%20Voglio%20iscrivermi!" target="_blank" rel="noopener">
+      <a class="share-btn wa" href="https://wa.me/?text=Back%20to%20Paranoia%20-%20Sabato%2021%20Marzo%20al%20Seven%20(Gorla%20Maggiore)%20-%2020%E2%82%AC%20open%20bar%20tutta%20la%20notte!" target="_blank" rel="noopener">
         💬 WhatsApp
       </a>
       <a class="share-btn ig" href="#" onclick="copyToClipboard(); return false;">
@@ -466,7 +478,7 @@
 
   <div class="footer">
     <p>Back to Paranoia — Seven, Gorla Maggiore</p>
-    <p style="margin-top: 4px;">Per smettere di ricevere aggiornamenti, scrivi "STOP" su WhatsApp.</p>
+    <p style="margin-top: 4px;">Per smettere di ricevere aggiornamenti, rispondi "STOP" a qualsiasi email.</p>
   </div>
 
 </div>
@@ -583,7 +595,7 @@
   }
 
   function copyToClipboard() {
-    const text = `🔥 Back to Paranoia\n📅 Sabato 21 Marzo\n📍 Seven — Gorla Maggiore (Via Sabotino)\n🍸 20€ open bar tutta la notte\n🧥 Guardaroba incluso\n⏰ 21:30 - 03:00\n\nIscriviti qui 👉 ${window.location.href}`;
+    const text = `Back to Paranoia\nSabato 21 Marzo\nSeven — Gorla Maggiore (Via Sabotino)\n20€ open bar tutta la notte\nGuardaroba incluso\n21:30 - 03:00\n\nIscriviti qui: ${window.location.href}`;
     navigator.clipboard.writeText(text).then(() => showToast('Testo copiato!'));
   }
 
